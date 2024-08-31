@@ -64,7 +64,7 @@ namespace RegistroTecnico.Service
 
         public async Task<bool> ValidarTecNombre(string nombre)
         {
-            return await _context.Tecnicos.AnyAsync(n => n.TecNombre == nombre);
+            return await _context.Tecnicos.AnyAsync(n => n.TecNombre == nombre); 
         }
 
 
