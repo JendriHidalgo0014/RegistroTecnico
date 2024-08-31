@@ -1,0 +1,42 @@
+﻿@page "/Tecnicos/Details/{id:int}"
+@rendermode InteractiveServer
+@inject TecnicoService tecnicoService
+@inject NavigationManager navigation
+
+<PageTitle>Detalles del Técnico</PageTitle>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h3 class="bi bi-eye"> Detalles del Técnico</h3>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">ID</dt>
+                <dd class="col-sm-9">@tecnico.TecId</dd>
+
+                <dt class="col-sm-3">Nombre</dt>
+                <dd class="col-sm-9">@tecnico.TecNombre</dd>
+
+                <dt class="col-sm-3">Sueldo por Hora</dt>
+                <dd class="col-sm-9">@tecnico.TecSueldoHora</dd>
+            </dl>
+            <button class="btn btn-secondary bi bi-arrow-left" @onclick="Volver"> Volver</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int id { get; set; }
+    private Tecnicos tecnico = new Tecnicos();
+
+    protected override async Task OnInitializedAsync()
+    {
+        tecnico = await tecnicoService.Buscar(id);
+    }
+
+    private void Volver()
+    {
+        navigation.NavigateTo("/Tecnicos/Index");
+    }
+}

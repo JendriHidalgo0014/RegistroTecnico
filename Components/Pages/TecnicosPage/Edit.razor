@@ -1,0 +1,52 @@
+﻿@page "/Tecnicos/Edit/{id:int}"
+@rendermode InteractiveServer
+@inject TecnicoService tecnicoService
+@inject NavigationManager navigation
+
+<PageTitle>Editar Técnico</PageTitle>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-secondary text-white">
+            <h3 class="bi bi-pencil-square"> Editar Técnico</h3>
+        </div>
+        <div class="card-body">
+            <EditForm Model="@tecnico" OnValidSubmit="GuardarCambios">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="mb-3">
+                    <label for="TecNombre" class="form-label">Nombre:</label>
+                    <InputText id="TecNombre" class="form-control" @bind-Value="tecnico.TecNombre" />
+                </div>
+                <div class="mb-3">
+                    <label for="TecSueldoHora" class="form-label">Sueldo por Hora:</label>
+                    <InputNumber id="TecSueldoHora" class="form-control" @bind-Value="tecnico.TecSueldoHora" />
+                </div>
+                <button type="submit" class="btn btn-success bi bi-check-circle"> Guardar</button>
+                <button type="button" class="btn btn-secondary bi bi-x-circle" @onclick="Cancelar"> Cancelar</button>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int id { get; set; }
+    private Tecnicos tecnico = new Tecnicos();
+
+    protected override async Task OnInitializedAsync()
+    {
+        tecnico = await tecnicoService.Buscar(id);
+    }
+
+    private async Task GuardarCambios()
+    {
+        await tecnicoService.Guardar(tecnico);
+        navigation.NavigateTo("/Tecnicos/Index");
+    }
+
+    private void Cancelar()
+    {
+        navigation.NavigateTo("/Tecnicos/Index");
+    }
+}

@@ -1,0 +1,109 @@
+﻿@page "/Tecnicos/Index"
+@rendermode InteractiveServer
+@inject TecnicoService tecnicoService
+@inject NavigationManager navigation
+
+<PageTitle>Tecnicos</PageTitle>
+<div class="container">
+    <div class="card-header bg-dark text-white">
+        <h3 class="bi bi-person-fill"><strong> Registro de Técnicos</strong></h3>
+    </div>
+    <div class="row text-left">
+        <div class="col-md-3">
+            <label for="filtro" class="form-label"><strong>Filtrar por:</strong></label>
+            <InputSelect id="filtro" class="form-select" @bind-Value="filtro">
+                <option value="id">ID</option>
+                <option value="Nombre">Nombre</option>
+                <option value="SueldoHora">Sueldo por Hora</option>
+            </InputSelect>
+        </div>
+        <div class="col-md-6">
+            <label for="valorFiltro" class="form-label"><strong>B&uacute;squeda:</strong></label>
+            <div class="input-group">
+                <InputText id="valorFiltro" @bind-Value="valorFiltro" class="form-control" placeholder="Buscar" />
+                <button @onclick="Buscar" class="btn btn-warning bi bi-search" type="button"> Buscar</button>
+            </div>
+        </div>
+        <div class="col-md-3 d-flex align-items-end justify-content-md-end mt-3 mt-md-0">
+            <a href="/Tecnicos/Create" class="btn btn-warning bi bi-plus-square-fill"> Crear</a>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <table class="table table-light">
+            <thead class="table table-striped text-center table-bordered mt-3 bg-dark text-white">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Sueldo por Hora</th>
+                    <th>Detalles</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var tecnico in tecnicos)
+                {
+                    <tr>
+                        <td class="text-center">@tecnico.TecId</td>
+                        <td class="text-center">@tecnico.TecNombre</td>
+                        <td class="text-center">@tecnico.TecSueldoHora</td>
+                        <td class="text-center">
+                            <a href="/Tecnicos/Details/@tecnico.TecId" class="btn btn-info text-white bi bi-eye-fill"></a>
+                        </td>
+                        <td class="text-center">
+                            <a href="/Tecnicos/Edit/@tecnico.TecId" class="btn btn-secondary text-white bi bi-pencil-fill"></a>
+                        </td>
+                        <td class="text-center">
+                            <a href="/Tecnicos/Delete/@tecnico.TecId" class="btn btn-danger bi bi-trash2-fill"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    public List<Tecnicos> tecnicos = new List<Tecnicos>();
+    public string filtro = "id";
+    public string valorFiltro = "";
+
+    public Index()
+    {
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        tecnicos = await tecnicoService.Listar(t => true);
+    }
+
+    public async Task Buscar()
+    {
+        if (!string.IsNullOrWhiteSpace(valorFiltro))
+        {
+            switch (filtro)
+            {
+                case "id":
+                    if (int.TryParse(valorFiltro, out int id))
+                    {
+                        tecnicos = await tecnicoService.Listar(t => t.TecId == id);
+                    }
+                    break;
+                case "Nombre":
+                    tecnicos = await tecnicoService.Listar(t => t.TecNombre.ToLower().Contains(valorFiltro.ToLower()));
+                    break;
+                case "SueldoHora":
+                    if (decimal.TryParse(valorFiltro, out decimal sueldoHora))
+                    {
+                        tecnicos = await tecnicoService.Listar(t => t.TecSueldoHora == sueldoHora);
+                    }
+                    break;
+            }
+        }
+        else
+        {
+            tecnicos = await tecnicoService.Listar(t => true);
+        }
+    }
+}

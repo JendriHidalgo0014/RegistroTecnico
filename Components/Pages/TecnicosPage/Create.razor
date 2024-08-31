@@ -1,0 +1,48 @@
+﻿@page "/Tecnicos/Create"
+@rendermode InteractiveServer
+@inject TecnicoService tecnicoService
+@inject NavigationManager navigation
+
+<PageTitle>Crear Técnico</PageTitle>
+<EditForm Model="tecnico" OnValidSubmit="CrearTecnico">
+    <DataAnnotationsValidator/>
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h3 class="bi bi-plus-square-fill"> Crear Técnico</h3>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="TecNombre" class="form-label">Nombre:</label>
+                    <InputText id="TecNombre" class="form-control" @bind-Value="tecnico.TecNombre"></InputText>
+                    <ValidationMessage For="@(()=>tecnico.TecNombre)"></ValidationMessage>
+                </div>
+                <div class="mb-3">
+                    <label for="TecSueldoHora" class="form-label">Sueldo por Hora:</label>
+                    <InputNumber id="TecSueldoHora" class="form-control" @bind-Value="tecnico.TecSueldoHora"></InputNumber>
+                    <ValidationMessage For="@(()=>tecnico.TecSueldoHora)"></ValidationMessage>
+                </div>
+                <div class="card-footer">
+                <button type="submit" class="btn btn-success bi bi-check-circle"> Guardar</button>
+                <button type="button" class="btn btn-secondary bi bi-x-circle" @onclick="Cancelar"> Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    private Tecnicos tecnico = new Tecnicos();
+
+    private async Task CrearTecnico()
+    {
+        await tecnicoService.Guardar(tecnico);
+        tecnico = new Tecnicos();
+        navigation.NavigateTo("/Tecnicos/Index");
+    }
+
+    private void Cancelar()
+    {
+        navigation.NavigateTo("/Tecnicos/Index");
+    }
+}
