@@ -3,7 +3,7 @@ using RegistroTecnico.DAL;
 using RegistroTecnico.Models;
 using RegistroTecnico.Components;
 using Microsoft.EntityFrameworkCore;
-using RegistroTecnico.Service;
+using REGISTROTECNICO.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 

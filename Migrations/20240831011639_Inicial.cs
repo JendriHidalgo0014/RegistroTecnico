@@ -21,7 +21,7 @@ namespace RegistroTecnico.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tecnicos", x => x.TecId);
+                    table.PrimaryKey("PK_Tecnicos", x => x.TecnicoId);
                 });
         }
 

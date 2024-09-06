@@ -17,7 +17,7 @@ namespace REGISTROTECNICO.Service
 
         public async Task<bool> Existe(int id)
         {
-            return await _context.Tecnicos.AnyAsync(T => T.TecId == id);
+            return await _context.Tecnicos.AnyAsync(T => T.TecnicoId == id);
         }
 
         public async Task<bool> Insertar(Tecnicos tecnicos)
@@ -34,7 +34,7 @@ namespace REGISTROTECNICO.Service
 
         public async Task<bool> Guardar(Tecnicos tecnicos)
         {
-            if (!await Existe(tecnicos.TecId))
+            if (!await Existe(tecnicos.TecnicoId))
                 return await Insertar(tecnicos);
             else
                 return await Modificar(tecnicos);
@@ -44,14 +44,14 @@ namespace REGISTROTECNICO.Service
         public async Task<bool> Eliminar(int id)
         {
             var eliminar = await _context.Tecnicos
-                .Where(a => a.TecId == id).ExecuteDeleteAsync();
+                .Where(a => a.TecnicoId == id).ExecuteDeleteAsync();
             return eliminar > 0;
         }
 
         public async Task<Tecnicos?> Buscar(int id)
         {
             return await _context.Tecnicos.AsNoTracking()
-                .FirstOrDefaultAsync(a => a.TecId == id);
+                .FirstOrDefaultAsync(a => a.TecnicoId == id);
         }
 
         public async Task<List<Tecnicos>> Listar(Expression<Func<Tecnicos, bool>> criterio)

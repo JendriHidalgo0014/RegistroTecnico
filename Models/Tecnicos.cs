@@ -5,7 +5,7 @@ namespace RegistroTecnico.Models
     {
 
         [Key]
-        public int TecId { get; set; }
+        public int TecnicoId { get; set; }
 
         [Required(ErrorMessage = "El campo Nombre es obligatorio")] 
 

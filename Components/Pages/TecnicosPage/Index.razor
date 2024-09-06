@@ -35,7 +35,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>Sueldo por Hora</th>
+                    <th>SueldoHora</th>
                     <th>Detalles</th>
                     <th>Modificar</th>
                     <th>Eliminar</th>
@@ -45,7 +45,7 @@
                 @foreach (var tecnico in tecnicos)
                 {
                     <tr>
-                        <td class="text-center">@tecnico.TecId</td>
+                        <td class="text-center">@tecnico.TecnicoId</td>
                         <td class="text-center">@tecnico.TecNombre</td>
                         <td class="text-center">@tecnico.TecSueldoHora</td>
                         <td class="text-center">
@@ -87,7 +87,7 @@
                 case "id":
                     if (int.TryParse(valorFiltro, out int id))
                     {
-                        tecnicos = await tecnicoService.Listar(t => t.TecId == id);
+                        tecnicos = await tecnicoService.Listar(t => t.TecnicoId == id);
                     }
                     break;
                 case "Nombre":
