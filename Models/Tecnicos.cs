@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace RegistroTecnico.Models
 {
     public class Tecnicos
@@ -7,7 +9,7 @@ namespace RegistroTecnico.Models
         [Key]
         public int TecnicoId { get; set; }
 
-        [Required(ErrorMessage = "El campo Nombre es obligatorio")] 
+        [Required(ErrorMessage = "El campo Nombre es obligatorio")]
 
         [RegularExpression(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$", ErrorMessage = "El campo solo puede contener letras y espacios.")]
         public string TecNombre { get; set; }
@@ -16,7 +18,14 @@ namespace RegistroTecnico.Models
 
         public decimal TecSueldoHora { get; set; }
 
+        [ForeignKey("TipoTecnico")]
+        [Required(ErrorMessage = "Es obligatorio seleccionar un tecnico")]
 
+        public int TipoTecnicoId { get; set; }
+
+        [ForeignKey("TipoTecnicoId")]
+
+        public TipoTecnico TipoTecnico { get; set; }
     }
-    
+
 }
