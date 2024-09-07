@@ -3,7 +3,7 @@ using RegistroTecnico.DAL;
 using RegistroTecnico.Models;
 using RegistroTecnico.Components;
 using Microsoft.EntityFrameworkCore;
-using REGISTROTECNICO.Service;
+using RegistroTecnico.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +13,7 @@ builder.Services.AddDbContext<Context>(c => c.UseSqlite(ConStr));
 
 // Inyeccion Service
 builder.Services.AddScoped<TecnicoService>();
+builder.Services.AddScoped<TipoTecnicoService>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

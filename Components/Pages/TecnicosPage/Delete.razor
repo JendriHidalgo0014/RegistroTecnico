@@ -13,7 +13,7 @@
         <div class="card-body">
             <dl class="row">
                 <dt class="col-sm-3">ID</dt>
-                <dd class="col-sm-9">@tecnico.TecId</dd>
+                <dd class="col-sm-9">@tecnico.TecnicoId</dd>
 
                 <dt class="col-sm-3">Nombre</dt>
                 <dd class="col-sm-9">@tecnico.TecNombre</dd>
@@ -38,7 +38,7 @@
 
     private async Task Eliminar()
     {
-        await tecnicoService.Eliminar(tecnico.TecId);
+        await tecnicoService.Eliminar(tecnico.TecnicoId);
         navigation.NavigateTo("/Tecnicos/Index");
     }
 
