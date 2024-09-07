@@ -3,7 +3,7 @@ using RegistroTecnico.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace REGISTROTECNICO.Service
+namespace RegistroTecnico.Service
 {
     public class TecnicoService
     {
