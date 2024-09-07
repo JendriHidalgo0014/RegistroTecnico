@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace RegistroTecnico.Models
 {
     public class Tecnicos
@@ -26,6 +27,10 @@ namespace RegistroTecnico.Models
         [ForeignKey("TipoTecnicoId")]
 
         public TipoTecnico TipoTecnico { get; set; }
+
+        [Required(ErrorMessage = "Debe colocar una descripcion")]
+
+        public string Descripcion { get; set; }
     }
 
 }
