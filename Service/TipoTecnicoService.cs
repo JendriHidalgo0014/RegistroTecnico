@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RegistroTecnico.DAL;
 using RegistroTecnico.Models;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
 
