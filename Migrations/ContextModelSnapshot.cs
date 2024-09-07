@@ -22,6 +22,10 @@ namespace RegistroTecnico.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("TecNombre")
                         .IsRequired()
                         .HasColumnType("TEXT");
