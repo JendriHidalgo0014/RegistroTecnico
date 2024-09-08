@@ -18,25 +18,34 @@
                 <dt class="col-sm-3">Descripción</dt>
                 <dd class="col-sm-9">@tipoTecnico.Descripcion</dd>
             </dl>
-            <button class="btn btn-danger bi bi-trash" @onclick="Eliminar"> Eliminar</button>
+            <button class="btn btn-danger bi bi-trash" @onclick="EliminarTipoTec"> Eliminar</button>
             <button class="btn btn-secondary bi bi-arrow-left" @onclick="Volver"> Volver</button>
         </div>
     </div>
 </div>
 
 @code {
-    [Parameter] public int id { get; set; }
-    private TipoTecnico tipoTecnico = new TipoTecnico();
+    [Parameter]
+    public int id { get; set; }
+    public TipoTecnico tipoTecnico = new TipoTecnico();
 
     protected override async Task OnInitializedAsync()
     {
-        tipoTecnico = await tipotecnicoService.Buscar(id);
+        if (id > 0)
+        {
+            tipoTecnico = (await tipotecnicoService.Buscar(id));
+        }
+
     }
 
-    private async Task Eliminar()
+    private async Task EliminarTipoTec()
     {
-        await tipotecnicoService.Eliminar(tipoTecnico.TipoTecnicoId);
-        navigation.NavigateTo("/TipoTecnico/Index");
+        var delete = await tipotecnicoService.Eliminar(tipoTecnico.TipoTecnicoId);
+        if (delete)
+        {
+            Volver();
+        }
+
     }
 
     private void Volver()

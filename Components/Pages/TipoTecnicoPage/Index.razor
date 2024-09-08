@@ -1,4 +1,5 @@
 ﻿@page "/TipoTecnico/Index"
+@using RegistroTecnicos.Service
 @rendermode InteractiveServer
 @inject TecnicoService tecnicoService
 @inject NavigationManager navigation
@@ -67,13 +68,13 @@
     public List<TipoTecnico> tipoTecnico = new List<TipoTecnico>();
     public List<TipoTecnico> filtrado = new List<TipoTecnico>();
 
-    public string filtro = "TipoTecnicoId";  
+    public string filtro = "TipoTecnicoId";
     public string valorFiltro = "";
 
     protected override async Task OnInitializedAsync()
     {
-        tipoTecnico = await tipotecnicoService.Listar(t => true);  
-        filtrado = tipoTecnico; 
+        tipoTecnico = await tipotecnicoService.Listar(t => true);
+        filtrado = tipoTecnico;
     }
 
     public async Task Buscar()
@@ -96,7 +97,8 @@
         }
         else
         {
-            filtrado = tipoTecnico; 
+            filtrado = tipoTecnico;
         }
     }
 }
+
