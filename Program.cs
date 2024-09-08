@@ -4,11 +4,12 @@ using RegistroTecnico.Models;
 using RegistroTecnico.Components;
 using Microsoft.EntityFrameworkCore;
 using RegistroTecnico.Service;
+using RegistroTecnicos.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Inyeccion SqLite
-var ConStr = builder.Configuration.GetConnectionString("ConStr"); 
+var ConStr = builder.Configuration.GetConnectionString("ConStr");
 builder.Services.AddDbContext<Context>(c => c.UseSqlite(ConStr));
 
 // Inyeccion Service
