@@ -3,14 +3,14 @@ using RegistroTecnico.Models;
 
 namespace RegistroTecnico.DAL
 {
-    public class Context : DbContext 
+    public class Context : DbContext
     {
-        public Context(DbContextOptions<Context> options) : base(options) 
+        public Context(DbContextOptions<Context> options) : base(options)
         {
-        
+
         }
 
-        public DbSet<Tecnicos> Tecnicos { get; set; } 
+        public DbSet<Tecnicos> Tecnicos { get; set; }
 
         public DbSet<TipoTecnico> TipoTecnico { get; set; }
 
