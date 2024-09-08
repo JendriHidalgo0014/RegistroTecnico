@@ -28,9 +28,7 @@ namespace RegistroTecnico.Models
 
         public TipoTecnico TipoTecnico { get; set; }
 
-        [Required(ErrorMessage = "Debe colocar una descripcion")]
 
-        public string Descripcion { get; set; }
     }
 
 }

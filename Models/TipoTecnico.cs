@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace RegistroTecnico.Models
 {
@@ -7,9 +10,9 @@ namespace RegistroTecnico.Models
         [Key]
         public int TipoTecnicoId { get; set; }
 
-       [Required(ErrorMessage = "Debe colocar una descripcion")]
+        [Required(ErrorMessage = "Debe colocar una descripcion")]
 
-       public string Descripcion { get; set; }
+        public string Descripcion { get; set; }
 
     }
 }
