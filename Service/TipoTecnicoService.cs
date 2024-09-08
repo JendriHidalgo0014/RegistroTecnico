@@ -44,8 +44,8 @@ namespace RegistroTecnico.Service
 
         public async Task<bool> Eliminar(int id)
         {
-            var eliminar = await _context.Tecnicos
-                .Where(a => a.TecnicoId == id).ExecuteDeleteAsync();
+            var eliminar = await _context.TipoTecnico
+                .Where(a => a.TipoTecnicoId == id).ExecuteDeleteAsync();
             return eliminar > 0;
         }
 

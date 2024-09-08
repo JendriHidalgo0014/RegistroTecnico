@@ -3,13 +3,11 @@ using RegistroTecnico.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-
-namespace RegistroTecnico.Service
+namespace RegistroTecnicos.Service
 {
     public class TecnicoService
     {
         private readonly Context _context;
-        private object _contexto;
 
         public TecnicoService(Context context)
         {
@@ -36,21 +34,11 @@ namespace RegistroTecnico.Service
 
         public async Task<bool> Guardar(Tecnicos tecnicos)
         {
-            try
-            {
-                if (!await Existe(tecnicos.TecnicoId))
-                    return await Insertar(tecnicos);
-                else
-                    return await Modificar(tecnicos);
-            }
-            catch (Exception ex)
-            {
-                // Manejo de errores: podrías registrar el error o lanzar una excepción controlada.
-                Console.WriteLine($"Error en Guardar: {ex.Message}");
-                return false; // Puedes devolver false si algo falla.
-            }
-        }
+            if (!await Existe(tecnicos.TecnicoId))
+                return await Insertar(tecnicos);
+            return await Modificar(tecnicos);
 
+        }
 
         public async Task<bool> Eliminar(int id)
         {
@@ -72,10 +60,17 @@ namespace RegistroTecnico.Service
                .ToListAsync();
         }
 
+        public async Task<Tecnicos?> EncontrarNombre(string nombre)
+        {
+            return await _context.Tecnicos.AsNoTracking()
+                .FirstOrDefaultAsync(t => t.TecNombre == nombre);
+
+        }
+
 
         public async Task<bool> ValidarTecNombre(string nombre)
         {
-            return await _context.Tecnicos.AnyAsync(n => n.TecNombre == nombre); 
+            return await _context.Tecnicos.AnyAsync(n => n.TecNombre == nombre);
         }
 
 
