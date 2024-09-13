@@ -1,5 +1,4 @@
 ﻿@page "/Tecnicos/Index"
-@using RegistroTecnicos.Service
 @rendermode InteractiveServer
 @inject TecnicoService tecnicoService
 @inject NavigationManager navigation
@@ -78,9 +77,6 @@
     public string filtro = "id";
     public string valorFiltro = "";
 
-    public Index()
-    {
-    }
 
     protected override async Task OnInitializedAsync()
     {

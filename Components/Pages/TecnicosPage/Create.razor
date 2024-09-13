@@ -1,12 +1,11 @@
 ﻿@page "/Tecnicos/Create"
-@using RegistroTecnicos.Service
 @rendermode InteractiveServer
 @inject TecnicoService tecnicoService
 @inject TipoTecnicoService tipotecnicoService
 @inject NavigationManager navigation
 
 <PageTitle>Crear Técnico</PageTitle>
-<EditForm Model="tecnico" OnValidSubmit="CrearTecnico">
+<EditForm Model="tecnicos" OnValidSubmit="CrearTecnico">
     <DataAnnotationsValidator />
     <div class="container">
         <div class="card">
@@ -17,16 +16,16 @@
                 <div class="mb-3">
 
                     <label for="TecNombre" class="form-label">Nombre:</label>
-                    <InputText id="TecNombre" class="form-control" @bind-Value="tecnico.TecNombre"></InputText>
-                    <ValidationMessage For="@(()=>tecnico.TecNombre)"></ValidationMessage>
+                    <InputText id="TecNombre" class="form-control" @bind-Value="tecnicos.TecNombre"></InputText>
+                    <ValidationMessage For="@(()=>tecnicos.TecNombre)"></ValidationMessage>
                 </div>
                 <div class="mb-3">
                     <label for="TecSueldoHora" class="form-label">Sueldo por Hora:</label>
-                    <InputNumber id="TecSueldoHora" class="form-control" @bind-Value="tecnico.TecSueldoHora"></InputNumber>
-                    <ValidationMessage For="@(()=>tecnico.TecSueldoHora)"></ValidationMessage>
+                    <InputNumber id="TecSueldoHora" class="form-control" @bind-Value="tecnicos.TecSueldoHora"></InputNumber>
+                    <ValidationMessage For="@(()=>tecnicos.TecSueldoHora)"></ValidationMessage>
 
                     <label class="form-label">Tipo tecnico</label>
-                    <InputSelect @bind-Value="tecnico.TipoTecnicoId" class="form-control">
+                    <InputSelect @bind-Value="tecnicos.TipoTecnicoId" class="form-control">
                         <option value="0">Seleccione el tipo de t&eacute;cnico</option>
                         @foreach (var tipo in ListaTipos)
                         {
@@ -44,7 +43,7 @@
 </EditForm>
 
 @code {
-    private Tecnicos tecnico = new Tecnicos();
+    private Tecnicos tecnicos = new Tecnicos();
     public List<TipoTecnico> ListaTipos { get; set; } = new List<TipoTecnico>();
 
 
@@ -58,7 +57,7 @@
     //Metodo para validar atributos tecnicos(nombre,sueldo)
     public async Task<bool> Validar()
     {
-        var tecnicoExiste = await tecnicoService.EncontrarNombre(tecnico.TecNombre);
+        var tecnicoExiste = await tecnicoService.EncontrarNombre(tecnicos.TecNombre);
         return tecnicoExiste == null;
     }
 
@@ -68,8 +67,8 @@
     {
         if (await Validar())
         {
-            await tecnicoService.Guardar(tecnico);
-            tecnico = new Tecnicos();
+            await tecnicoService.Guardar(tecnicos);
+            tecnicos = new Tecnicos();
             navigation.NavigateTo("/Tecnicos/Index");
 
         }
