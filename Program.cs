@@ -4,7 +4,7 @@ using RegistroTecnico.Models;
 using RegistroTecnico.Components;
 using Microsoft.EntityFrameworkCore;
 using RegistroTecnico.Service;
-using RegistroTecnicos.Service;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
