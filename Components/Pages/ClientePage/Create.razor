@@ -1,0 +1,51 @@
+﻿@page "/Cliente/Create"
+@rendermode InteractiveServer
+@inject ClienteService clienteService
+@inject NavigationManager navigation
+
+<PageTitle>Crear Cliente</PageTitle>
+<EditForm Model="Cliente" OnValidSubmit="CrearCliente">
+    <DataAnnotationsValidator />
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h3 class="bi bi-plus-square-fill"> Crear Cliente</h3>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="WhatsApp" class="form-label">WhatsApp:</label>
+                    <InputText id="WhatsApp" class="form-control" @bind-Value="Cliente.WhatsApp"></InputText>
+                    <ValidationMessage For="@(()=>Cliente.WhatsApp)"></ValidationMessage>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Nombres" class="form-label">Nombres:</label>
+                    <InputText id="Nombres" class="form-control" @bind-Value="Cliente.Nombres"></InputText>
+                    <ValidationMessage For="@(()=>Cliente.Nombres)"></ValidationMessage>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success bi bi-check-circle"> Guardar</button>
+                    <button type="button" class="btn btn-secondary bi bi-x-circle" @onclick="Cancelar"> Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    private Cliente Cliente = new Cliente();
+
+    private async Task CrearCliente()
+    {
+        await clienteService.Guardar(Cliente);
+        Cliente = new Cliente();
+        navigation.NavigateTo("/Cliente/Index");
+    }
+
+    private void Cancelar()
+    {
+        navigation.NavigateTo("/Cliente/Index");
+    }
+}
+
+
