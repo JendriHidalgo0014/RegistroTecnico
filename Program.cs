@@ -15,6 +15,10 @@ builder.Services.AddDbContext<Context>(c => c.UseSqlite(ConStr));
 // Inyeccion Service
 builder.Services.AddScoped<TecnicoService>();
 builder.Services.AddScoped<TipoTecnicoService>();
+builder.Services.AddScoped<ClienteService>();
+builder.Services.AddScoped<TrabajoService>();
+
+
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
