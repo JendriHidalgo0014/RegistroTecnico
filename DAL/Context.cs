@@ -14,6 +14,11 @@ namespace RegistroTecnico.DAL
 
         public DbSet<TipoTecnico> TipoTecnico { get; set; }
 
+        public DbSet<Cliente> Cliente { get; set; }
+
+        public DbSet<Trabajo> Trabajo { get; set; }
+
+
     }
 
 }
