@@ -1,0 +1,70 @@
+﻿@page "/Trabajo/Edit/{id:int}"
+@rendermode InteractiveServer
+@inject TrabajoService trabajoService
+@inject TecnicoService tecnicoService 
+@inject ClienteService clienteService
+@inject NavigationManager navigation
+
+<h3>Editar Trabajo</h3>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="TrabajoId">Trabajo ID</label>
+                <input type="text" class="form-control" id="TrabajoId" @bind="trabajo.TrabajoId" disabled />
+            </div>
+            <div class="form-group">
+                <label for="Fecha">Fecha</label>
+                <input type="date" class="form-control" id="Fecha" @bind="trabajo.Fecha" />
+            </div>
+            <div class="form-group">
+                <label for="ClienteId">Cliente ID</label>
+                <input type="text" class="form-control" id="ClienteId" @bind="trabajo.ClienteId" />
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" id="nombre" @bind="trabajo.nombre" />
+            </div>
+            <div class="form-group">
+                <label for="TecnicoId">Tecnico ID</label>
+                <input type="text" class="form-control" id="TecnicoId" @bind="trabajo.TecnicoId" />
+            </div>
+            <div class="form-group">
+                <label for="TecNombre">Nombre del Tecnico</label>
+                <input type="text" class="form-control" id="TecNombre" @bind="trabajo.TecNombre" />
+            </div>
+            <div class="form-group">
+                <label for="Descripcion">Descripción</label>
+                <textarea class="form-control" id="Descripcion" @bind="trabajo.Descripcion"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="Monto">Monto</label>
+                <input type="number" class="form-control" id="Monto" @bind="trabajo.Monto" />
+            </div>
+            <button class="btn btn-primary" @onclick="Guardar">Guardar</button>
+            <button class="btn btn-secondary" @onclick="OnCancel">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int id { get; set; }
+    public Trabajo trabajo = new Trabajo();
+
+    protected override async Task OnInitializedAsync()
+    {
+        trabajo = await trabajoService.Buscar(id); // Cambiado de ObtenerPorId a Buscar
+    }
+
+    private async Task Guardar()
+    {
+        await trabajoService.Modificar(trabajo); // Cambiado de Actualizar a Modificar
+        navigation.NavigateTo("/Trabajo/Index");
+    }
+
+    private void OnCancel()
+    {
+        navigation.NavigateTo("/Trabajo/Index");
+    }
+}

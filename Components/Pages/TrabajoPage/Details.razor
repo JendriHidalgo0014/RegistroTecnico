@@ -1,0 +1,57 @@
+﻿@page "/Trabajo/Details/{id:int}"
+@rendermode InteractiveServer
+@inject TrabajoService trabajoService
+@inject NavigationManager navigation
+@inject TecnicoService tecnicoService
+@inject ClienteService clienteService
+
+<h3>Detalles del Trabajo</h3>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Trabajo ID</dt>
+                <dd class="col-sm-9">@trabajo.TrabajoId</dd>
+
+                <dt class="col-sm-3">Fecha</dt>
+                <dd class="col-sm-9">@trabajo.Fecha.ToShortDateString()</dd>
+
+                <dt class="col-sm-3">Cliente ID</dt>
+                <dd class="col-sm-9">@trabajo.ClienteId</dd>
+
+                <dt class="col-sm-3">Nombre</dt>
+                <dd class="col-sm-9">@trabajo.nombre</dd>
+
+                <dt class="col-sm-3">Técnico ID</dt>
+                <dd class="col-sm-9">@trabajo.TecnicoId</dd>
+
+                <dt class="col-sm-3">Nombre del Técnico</dt>
+                <dd class="col-sm-9">@trabajo.TecNombre</dd>
+
+                <dt class="col-sm-3">Descripción</dt>
+                <dd class="col-sm-9">@trabajo.Descripcion</dd>
+
+                <dt class="col-sm-3">Monto</dt>
+                <dd class="col-sm-9">@trabajo.Monto.ToString("C")</dd>
+            </dl>
+            <button class="btn btn-secondary" @onclick="OnCancel">Cancelar</button>
+
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int id { get; set; }
+    public Trabajo trabajo = new Trabajo();
+
+    protected override async Task OnInitializedAsync()
+    {
+        trabajo = await trabajoService.Buscar(id); // Reemplazado ObtenerPorId por Buscar
+    }
+
+    private void OnCancel()
+    {
+        navigation.NavigateTo("/Trabajo/Index");
+    }
+}
