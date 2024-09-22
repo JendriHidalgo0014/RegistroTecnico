@@ -26,6 +26,20 @@ namespace RegistroTecnico.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Prioridades",
+                columns: table => new
+                {
+                    PrioridadId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Descripcion = table.Column<string>(type: "TEXT", nullable: false),
+                    Tiempo = table.Column<TimeSpan>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Prioridades", x => x.PrioridadId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TipoTecnico",
                 columns: table => new
                 {
@@ -89,6 +103,9 @@ namespace RegistroTecnico.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Cliente");
+
+            migrationBuilder.DropTable(
+                name: "Prioridades");
 
             migrationBuilder.DropTable(
                 name: "Tecnicos");
