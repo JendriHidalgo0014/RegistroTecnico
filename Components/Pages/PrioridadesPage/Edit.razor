@@ -1,0 +1,51 @@
+﻿@page "/Prioridades/Edit/{id:int}"
+@rendermode InteractiveServer
+@inject PrioridadService prioridadService
+@inject NavigationManager navigation
+
+<h3>Editar Prioridad</h3>
+
+<EditForm Model="prioridades" OnValidSubmit="Guardar" FormName="prioridadEditForm">
+    <DataAnnotationsValidator />
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="PrioridadId">Prioridad ID</label>
+                    <input type="text" class="form-control" id="PrioridadId" @bind="prioridades.PrioridadId" disabled />
+                </div>
+                <div class="form-group">
+                    <label for="Descripcion">Descripción</label>
+                    <textarea class="form-control" id="Descripcion" @bind="prioridades.Descripcion"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Tiempo">Tiempo</label>
+                    <input type="number" class="form-control" id="Tiempo" @bind="prioridades.Tiempo" />
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-secondary" @onclick="OnCancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public int id { get; set; }
+    public Prioridades prioridades = new Prioridades();
+
+    protected override async Task OnInitializedAsync()
+    {
+        prioridades = await prioridadService.Buscar(id);
+    }
+
+    private async Task Guardar()
+    {
+        await prioridadService.Modificar(prioridades);
+        navigation.NavigateTo("/Prioridades/Index");
+    }
+
+    private void OnCancel()
+    {
+        navigation.NavigateTo("/Prioridades/Index");
+    }
+}

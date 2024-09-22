@@ -1,0 +1,105 @@
+﻿@page "/Prioridades/Index"
+@rendermode InteractiveServer
+@inject PrioridadService prioridadService
+@inject NavigationManager navigation
+
+<PageTitle>Prioridades</PageTitle>
+<div class="container">
+    <div class="card-header bg-dark text-white">
+        <h3 class="bi bi-person-fill"><strong> Registro de Prioridades</strong></h3>
+    </div>
+    <div class="row text-left">
+        <div class="col-md-3">
+            <label for="filtro" class="form-label"><strong>Filtrar por:</strong></label>
+            <InputSelect id="filtro" class="form-select" @bind-Value="filtro">
+                <option value="id">ID</option>
+                <option value="Descripcion">Descripcion</option>
+                <option value="Tiempo">Tiempo</option>
+            </InputSelect>
+        </div>
+        <div class="col-md-6">
+            <label for="valorFiltro" class="form-label"><strong>B&uacute;squeda:</strong></label>
+            <div class="input-group">
+                <InputText id="valorFiltro" @bind-Value="valorFiltro" class="form-control" placeholder="Buscar" />
+                <button @onclick="Buscar" class="btn btn-warning bi bi-search" type="button"> Buscar</button>
+            </div>
+        </div>
+        <div class="col-md-3 d-flex align-items-end justify-content-md-end mt-3 mt-md-0">
+            <a href="/Prioridades/Create" class="btn btn-warning bi bi-plus-square-fill"> Crear</a>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <table class="table table-light">
+            <thead class="table table-striped text-center table-bordered mt-3 bg-dark text-white">
+                <tr>
+                    <th>ID</th>
+                    <th>Descripcion</th>
+                    <th>Tiempo</th>
+                    <th>Detalles</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var prioridad in prioridades)
+                {
+                    <tr>
+                        <td class="text-center">@prioridad.PrioridadId</td>
+                        <td class="text-center">@prioridad.Descripcion</td>
+                        <td class="text-center">@prioridad.Tiempo</td>
+
+                        <td class="text-center">
+                            <a href="/Prioridades/Details/@prioridad.PrioridadId" class="btn btn-info text-white bi bi-eye-fill"></a>
+                        </td>
+                        <td class="text-center">
+                            <a href="/Prioridades/Edit/@prioridad.PrioridadId" class="btn btn-secondary text-white bi bi-pencil-fill"></a>
+                        </td>
+                        <td class="text-center">
+                            <a href="/Prioridades/Delete/@prioridad.PrioridadId" class="btn btn-danger bi bi-trash2-fill"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    public List<Prioridades> prioridades = new List<Prioridades>();  // Cambio: El tipo de la lista debe ser 'Prioridad'
+    public string filtro = "id";
+    public string valorFiltro = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        prioridades = await prioridadService.Listar(t => true);  // Carga inicial de prioridades
+    }
+
+    private async Task Buscar()
+    {
+        if (!string.IsNullOrWhiteSpace(valorFiltro))
+        {
+            if (filtro == "id" && int.TryParse(valorFiltro, out int PrioridadId))
+            {
+                // Búsqueda por ID
+                prioridades = await prioridadService.Listar(t => t.PrioridadId == PrioridadId);
+            }
+            else if (filtro == "Tiempo")
+            {
+                // Convertir el valor de TimeSpan a una cadena y luego comparar
+                prioridades = await prioridadService.Listar(t => t.Tiempo.ToString().Contains(valorFiltro));
+            }
+
+            else if (filtro == "Descripcion")
+            {
+                // Búsqueda por Descripción
+                prioridades = await prioridadService.Listar(t => t.Descripcion.ToLower().Contains(valorFiltro.ToLower()));
+            }
+        }
+        else
+        {
+            // Si el valor de búsqueda está vacío, carga todas las prioridades
+            prioridades = await prioridadService.Listar(t => true);
+        }
+    }
+}

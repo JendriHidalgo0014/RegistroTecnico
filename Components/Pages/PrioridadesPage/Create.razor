@@ -1,0 +1,43 @@
+﻿@page "/Prioridades/Create"
+@rendermode InteractiveServer
+@inject PrioridadService prioridadService
+@inject NavigationManager navigation
+
+<h3>Crear Prioridad</h3>
+
+<EditForm Model="prioridades" OnSubmit="CrearPrioridad" FormName="prioridadCreateForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="Descripcion">Descripción</label>
+                    <textarea class="form-control" id="Descripcion" @bind="prioridades.Descripcion"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Tiempo">Tiempo</label>
+                    <input type="number" class="form-control" id="Tiempo" @bind="prioridades.Tiempo" />
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-secondary" @onclick="OnCancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    public Prioridades prioridades = new Prioridades();
+
+    private async Task CrearPrioridad()
+    {
+        await prioridadService.Guardar(prioridades);
+        navigation.NavigateTo("/Prioridades/Index");
+    }
+
+    private void OnCancel()
+    {
+        navigation.NavigateTo("/Prioridades/Index");
+    }
+}
