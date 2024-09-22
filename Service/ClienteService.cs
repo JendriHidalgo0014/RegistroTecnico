@@ -69,7 +69,7 @@ namespace RegistroTecnico.Service
             return await _context.Cliente.AnyAsync(n => n.Nombres == nombre);
         }
 
-        public async Task<bool> ExisteClienteWhatsApp(int WhatsApp)
+        public async Task<bool> ExisteClienteWhatsApp(string WhatsApp)
         {
             return await _context.Cliente.AnyAsync(t => t.WhatsApp == WhatsApp);
         }

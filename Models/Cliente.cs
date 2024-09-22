@@ -15,7 +15,7 @@ namespace RegistroTecnico.Models
 
         [Required(ErrorMessage = "Debe colocar un numero de telefono")]
 
-        public int WhatsApp { get; set; }
+        public string WhatsApp { get; set; }
 
     }
 }
