@@ -80,7 +80,7 @@
     {
         if (!string.IsNullOrWhiteSpace(valorFiltro))
         {
-            if (filtro == "id" && int.TryParse(valorFiltro, out int ClienteId))
+            if (filtro == "Clienteid" && int.TryParse(valorFiltro, out int ClienteId))
             {
                 ListaCliente = await clienteService.Listar(c => c.ClienteId == ClienteId);
             }
@@ -90,9 +90,8 @@
             }
             else if (filtro == "WhatsApp")
             {
-                var iguales = await clienteService.Listar(c => c.WhatsApp.ToLower().Contains(valorFiltro.ToLower()));
-                var idIgual = iguales.Select(c => c.ClienteId).ToList();
-                ListaCliente = await clienteService.Listar(c => idIgual.Contains(c.ClienteId));
+                // Manejar WhatsApp null y aplicar filtro
+                ListaCliente = await clienteService.Listar(c => c.WhatsApp != null && c.WhatsApp.ToLower().Contains(valorFiltro.ToLower()));
             }
         }
         else
@@ -101,4 +100,3 @@
         }
     }
 }
-
