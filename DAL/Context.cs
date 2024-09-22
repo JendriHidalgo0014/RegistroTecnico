@@ -9,7 +9,6 @@ namespace RegistroTecnico.DAL
         {
 
         }
-
         public DbSet<Tecnicos> Tecnicos { get; set; }
 
         public DbSet<TipoTecnico> TipoTecnico { get; set; }
@@ -17,6 +16,9 @@ namespace RegistroTecnico.DAL
         public DbSet<Cliente> Cliente { get; set; }
 
         public DbSet<Trabajo> Trabajo { get; set; }
+
+        public DbSet<Prioridades> Prioridades { get; set; }
+
 
 
     }
