@@ -18,7 +18,7 @@
                 <dd class="col-sm-9">@trabajo.Fecha.ToShortDateString()</dd>
 
                 <dt class="col-sm-3">Cliente ID</dt>
-                <dd class="col-sm-9">@trabajo.ClienteId</dd>
+                <dd class="col-sm-9">@trabajo.TrabajoId</dd>
 
                 <dt class="col-sm-3">Nombre</dt>
                 <dd class="col-sm-9">@trabajo.nombre</dd>
@@ -55,7 +55,7 @@
     private void EnviarMensajeWhatsApp()
     {
         // Construye el mensaje de WhatsApp con los detalles del trabajo
-        var mensaje = $"Detalles del Trabajo:\nTrabajo ID: {trabajo.TrabajoId}\nFecha: {trabajo.Fecha.ToShortDateString()}\nCliente ID: {trabajo.ClienteId}\nNombre: {trabajo.nombre}\nTécnico: {trabajo.TecNombre}\nDescripción: {trabajo.Descripcion}\nMonto: {trabajo.Monto.ToString("C")}";
+        var mensaje = $"Detalles del Trabajo:\nTrabajo ID: {trabajo.TrabajoId}\nFecha: {trabajo.Fecha.ToShortDateString()}\nCliente ID: {trabajo.TrabajoId}\nNombre: {trabajo.nombre}\nTécnico: {trabajo.TecNombre}\nDescripción: {trabajo.Descripcion}\nMonto: {trabajo.Monto.ToString("C")}";
 
         // Codifica el mensaje para que sea compatible con el formato de URL
         var mensajeCodificado = System.Net.WebUtility.UrlEncode(mensaje);

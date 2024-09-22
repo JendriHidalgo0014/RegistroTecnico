@@ -101,7 +101,7 @@
             }
             else if (filtro == "ClienteId" && int.TryParse(valorFiltro, out int clienteId))
             {
-                trabajos = await trabajoService.Listar(t => t.ClienteId == clienteId);
+                trabajos = await trabajoService.Listar(t => t.TrabajoId == clienteId);
             }
             else if (filtro == "nombre")
             {
